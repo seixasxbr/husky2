@@ -35,6 +35,10 @@ add_executable(husky_node
   src/horizon_legacy_wrapper.cpp)
 target_link_libraries(husky_node horizon_legacy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
+add_executable(control src/control.cpp)
+target_link_libraries(control ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+install(TARGETS control DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
 roslint_cpp(
   src/husky_base.cpp
   src/husky_hardware.cpp
