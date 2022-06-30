@@ -27,8 +27,8 @@ void handle_poses(const nav_msgs::Odometry::ConstPtr& msg)
     // double Xr = -1;
     // double Yr = 1;
     // double PSIr = 0;
-    double Xr = 3 * sin(0.4 * secs);
-    double Yr = 3 * cos(0.4 * secs);
+    double Xr = 3 * sin(0.3 * secs);
+    double Yr = 3 * cos(0.3 * secs);
     if(Yr == 0){
       Yr = 0.00001;
     }
@@ -39,10 +39,10 @@ void handle_poses(const nav_msgs::Odometry::ConstPtr& msg)
     double e1 = (cos(yaw) * Ex) + (sin(yaw) * Ey);
     double e2 = (-sin(yaw) * Ex) + (cos(yaw) * Ey);
     double e3 = Epsi;
-    double Vr = 0.5;
-    double k1 = 5;
-    double k2 = 2;
-    double k3 = 0.5;
+    double Vr = 0.9;
+    double k1 = 2;
+    double k2 = 3;
+    double k3 = 1;
     double Wr = 0.6;
     v = Vr * cos(e3) + k1 * e1;
     w = Wr + Vr * k2 * e2 + k3 * sin(e3);
