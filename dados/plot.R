@@ -1,18 +1,25 @@
 library(ggplot2)
 
-setwd("/home/seixas/Documents/husky_ws/src/husky/bags/plot.R")
-
-Xr <- read.csv("husky_2022-07-06-17-14-51-Xr.csv",header=T, sep = ",")
+getwd()
+Xr <- read.csv("husky_2022-07-06-17-44-12-Xr.csv",header=T, sep = ",")
 Yr <- read.csv("husky_2022-07-06-17-14-51-Yr.csv",header=T, sep = ",")
 PSIr <- read.csv("husky_2022-07-06-17-14-51-PSIr.csv",header=T, sep = ",")
 X <- read.csv("husky_2022-07-06-17-14-51-Xr.csv",header=T, sep = ",")
 Y <- read.csv("husky_2022-07-06-17-14-51-Yr.csv",header=T, sep = ",")
 PSI <- read.csv("husky_2022-07-06-17-14-51-PSI.csv",header=T, sep = ",")
+cmd_vel <- read.csv("husky_2022-07-06-17-44-12-cmd_vel.csv",header=T, sep = ",")
 
+gt.dados = data.frame(v = cmd_vel$.linear.x,
+                      w = cmd_vel$.angular.z)
 
-gt.dados = data.frame(x=gt$.pose.pose.position.x,
-                   y=gt$.pose.pose.position.y,
-                   psi=PSI$.data)
+colors <- c("Ground Truth" = "red", "Odometria" = "green", "Odometria Filtrada" = "blue")
+
+b = ggplot() +
+  geom_line(data = gt.dados,aes(x=(1:15504)/500,y=v, color = "v"), size = 1.5) +
+  geom_line(data = gt.dados,aes(x=(1:15504)/500,y=w, color = "w"), size = 1.5) +
+  labs(title = "Esforços de Controle") + labs(color="Legenda") + xlab("Tempo") + ylab("Sinal de Controle")+
+  scale_color_manual(values=c('blue','red'))
+b
 
 
 gt.df = data.frame(x=gt$.pose.pose.position.x,
